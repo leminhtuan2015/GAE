@@ -1,0 +1,21 @@
+<project name="serverexamples" default="runserver">
+  <property name="appengine.sdk" location="../" />
+
+  <import file="${appengine.sdk}/config/user/ant-macros.xml" />
+
+  <path id="project.classpath">
+    <pathelement path="war/WEB-INF/classes" />
+    <fileset dir="war/WEB-INF/lib">
+      <include name="**/*.jar" />
+    </fileset>
+    <fileset dir="${appengine.sdk}/lib">
+      <include name="shared/**/*.jar" />
+    </fileset>
+  </path>
+
+  <target name="runserver"
+      description="Starts the development server.">
+    <dev_appserver war="Wep-app-server-gae" port="1992"/>
+  </target>
+
+</project>

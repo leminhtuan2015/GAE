@@ -1,0 +1,40 @@
+<project name="Web-java-deploy-to-google-server">
+  <property name="appengine.sdk" location="../../" />
+  
+  <!--  
+  chú ý : 
+   <property name="appengine.sdk" location="../../" /> : link den file gae
+   <dev_appserver war="../Wep-app-server-gae-v2" port="1993"/> : link den file war (giai nen file .war thanh file binh thuong)
+  -->
+
+  <import file="${appengine.sdk}/config/user/ant-macros.xml" />
+
+  <path id="project.classpath">
+    <pathelement path="war/WEB-INF/classes" />
+    <fileset dir="war/WEB-INF/lib">
+      <include name="**/*.jar" />
+    </fileset>
+    <fileset dir="${appengine.sdk}/lib">
+      <include name="shared/**/*.jar" />
+    </fileset>
+  </path>
+
+  <target name="runserver"
+      description="Starts the development server.">
+    <dev_appserver war="./war" address="192.168.1.100" port="8080"/>
+  </target>
+
+  <target name="update"
+      description="Uploads the application to App Engine.">
+    <appcfg action="update" war="war" />
+  </target>
+
+  <target name="getCurrentIP">
+        <hostinfo prefix="remotehost" host="ec2-54-234-104-107.compute-1.amazonaws.com"/>
+        <echo>currentIP : ${remotehost.ADDR4}</echo>
+	<echo>currentIP : ${remotehost.NAME}</echo>
+	<echo>currentIP : ${remotehost.DOMAIN}</echo>
+    </target>
+
+
+</project>
